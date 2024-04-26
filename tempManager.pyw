@@ -7,13 +7,13 @@ TEMPFILE = TEMP+"temp.py"
 CONFIG = TEMP+"allowed.config"
 TIMESTAMP = TEMP+"tempMetadata.time"
 HOURSTODELETE = 8
-ALLOWED = []
 
 def empty():
     if os.path.exists(CONFIG):
         ALLOWED = [i.strip() for i in open(CONFIG).readlines()]
     else:
-        open(CONFIG, "w").write("# This is a file of allowed exceptions (each line used as a filename, not full path)\ntempManager.pyw")
+        open(CONFIG, "w").write("# This is a file of allowed exceptions (each line used as a filename, not full path)\ntempManager.pyw\nallowed.config")
+        ALLOWED = ["tempManager.pyw", "allowed.config"]
         
     
     for i in os.listdir(TEMP):
