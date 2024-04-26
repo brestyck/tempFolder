@@ -24,7 +24,7 @@ def empty():
                 os.remove(TEMP+i)
             except PermissionError: pass
     deltime = datetime.datetime.now().strftime("%H:%M")
-    open(TEMPFILE, "w").write(f"# Warning! This file is temporary and will be deleted 8 hrs after {deltime}\n\n\n")
+    open(TEMPFILE, "w").write(f"# Warning! This file is temporary and will be deleted {HOURSTODELETE} hrs after {deltime}\n\n\n")
     open(TIMESTAMP, "w").write(str(time.time()))
 
 def inquire_time():
