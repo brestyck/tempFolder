@@ -12,7 +12,7 @@ def empty():
     if os.path.exists(CONFIG):
         ALLOWED = [i.strip() for i in open(CONFIG).readlines()]
     else:
-        open(CONFIG, "w").write("# This is a file of allowed exceptions (each line used as a filename, not full path)\ntempManager.pyw\nallowed.config")
+        open(CONFIG, "w", encoding="utf-8").write("# This is a file of allowed exceptions (each line used as a filename, not full path)\ntempManager.pyw\nallowed.config")
         ALLOWED = ["tempManager.pyw", "allowed.config"]
         
     
@@ -22,9 +22,13 @@ def empty():
             print(f"Removing {i}...")
             try:
                 os.remove(TEMP+i)
-            except PermissionError: pass
+            except PermissionError:
+                try:
+                    os.rmdir(TEMP+i)
+                except OSError:
+                    pass
     deltime = datetime.datetime.now().strftime("%H:%M")
-    open(TEMPFILE, "w").write(f"# Warning! This file is temporary and will be deleted {HOURSTODELETE} hrs after {deltime}\n\n\n")
+    open(TEMPFILE, "w", encoding="utf-8").write(f"# Warning! This file is temporary and will be deleted {HOURSTODELETE} hrs after {deltime}\n\n\n")
     open(TIMESTAMP, "w").write(str(time.time()))
 
 def inquire_time():
